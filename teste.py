@@ -47,4 +47,6 @@ plt.ylabel('Uso (%)')
 plt.title('Uso de CPU e RAM ao longo do tempo')
 plt.legend()
 plt.grid(True)
-plt.show()
+
+# Salvar o gráfico como plot1.png
+plt.savefig('plot1.png')
