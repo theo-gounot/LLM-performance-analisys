@@ -2,6 +2,7 @@ import psutil
 import time
 import pandas as pd
 import matplotlib.pyplot as plt
+import os
 
 # Função para monitorar CPU e RAM ao longo do tempo
 def monitor_system(duration=60, interval=1):
@@ -28,6 +29,13 @@ def monitor_system(duration=60, interval=1):
     # Retornar os dados
     return timestamps, cpu_percentages, ram_percentages
 
+# Função para encontrar o menor número disponível para a pasta 'teste n'
+def get_next_test_folder(base_folder='automacao'):
+    n = 1
+    while os.path.exists(os.path.join(base_folder, f'teste {n}')):
+        n += 1
+    return os.path.join(base_folder, f'teste {n}')
+
 # Monitorar por 60 segundos com intervalos de 1 segundo
 timestamps, cpu_data, ram_data = monitor_system(duration=60, interval=1)
 
@@ -37,6 +45,16 @@ df = pd.DataFrame({
     'CPU Usage (%)': cpu_data,
     'RAM Usage (%)': ram_data
 })
+
+# Criar a pasta 'teste n'
+test_folder = get_next_test_folder()
+
+# Criar a pasta caso ela não exista
+os.makedirs(test_folder, exist_ok=True)
+
+# Salvar o DataFrame como CSV na pasta 'teste n'
+csv_path = os.path.join(test_folder, 'teste.csv')
+df.to_csv(csv_path, index=False)
 
 # Plotar os gráficos
 plt.figure(figsize=(10, 5))
@@ -48,5 +66,9 @@ plt.title('Uso de CPU e RAM ao longo do tempo')
 plt.legend()
 plt.grid(True)
 
-# Salvar o gráfico como plot1.png
-plt.savefig('plot1.png')
+# Salvar o gráfico na pasta 'teste n' como 'teste n.png'
+graph_path = os.path.join(test_folder, f'teste {test_folder.split()[-1]}.png')
+plt.savefig(graph_path)
+
+print(f'Dados salvos em {csv_path}')
+print(f'Gráfico salvo em {graph_path}')
