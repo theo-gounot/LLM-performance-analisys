@@ -24,7 +24,7 @@ def monitor_system(duration=60, interval=1):
         ram_percentages.append(ram_percent)
 
         # Printar os valores (opcional)
-        print(f"Tempo: {timestamps[-1]:.2f}s | CPU: {cpu_percent}% | RAM: {ram_percent}%")
+       # print(f"Tempo: {timestamps[-1]:.2f}s | CPU: {cpu_percent}% | RAM: {ram_percent}%")
 
     # Retornar os dados
     return timestamps, cpu_percentages, ram_percentages
@@ -37,7 +37,7 @@ def get_next_test_folder(base_folder='automacao'):
     return os.path.join(base_folder, f'teste {n}')
 
 # Monitorar por 60 segundos com intervalos de 1 segundo
-timestamps, cpu_data, ram_data = monitor_system(duration=60, interval=1)
+timestamps, cpu_data, ram_data = monitor_system(duration=100, interval=1)
 
 # Criar um DataFrame com os dados
 df = pd.DataFrame({
