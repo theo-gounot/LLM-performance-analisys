@@ -13,7 +13,8 @@ documents_folder="$HOME/Documents/automacao"
 output_file="$documents_folder/last_five_lines.log"
 
 # Run the Llama model and wait for it to finish
-$llama-cli -m your_model.gguf -p "You are a helpful assistant" -cnv
+# Run the Llama model and wait for it to finish
+$HOME/llama-cli -m your_model.gguf -p "You are a helpful assistant" -cnv
 
 # After the command finishes, extract the last 5 lines from the log file
 tail -n 5 "$log_file" > "$output_file"
